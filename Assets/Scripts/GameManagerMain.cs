@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class GameManagerMain : MonoBehaviour
 {
+    [SerializeField] GameObject GameManager; // 게임 매니저 오브젝트
     [SerializeField] Text hpText; // hp 줄어드는 시스템을 개발하자
     [SerializeField] Text pointText;
     int nowtime;
@@ -17,6 +18,7 @@ public class GameManagerMain : MonoBehaviour
         nowpoint = 0;
         HP = 10;
         timePlay = StartCoroutine("TimePlay");
+        hpText.text = "남은 체력 : 10점";
         pointText.text = "점수 : 0점";
     }
 
@@ -43,5 +45,11 @@ public class GameManagerMain : MonoBehaviour
     public void LosePoint()
     {
         HP--;
+        hpText.text = "남은 체력 : " + HP;
+
+        if(HP <= 0)
+        {
+            GameManager.GetComponent<GameManager>().GameOver();
+        }
     }
 }

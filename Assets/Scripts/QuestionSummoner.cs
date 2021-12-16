@@ -10,17 +10,15 @@ public class QuestionSummoner : MonoBehaviour
     [SerializeField] GameObject deadLine; // 문제가 닿으면 사라지는 최종 라인 오브젝트
     List<GameObject> questions; // 문제 리스트
     Queue<GameObject> stayQuestions; // 대기 문제 큐
+    Coroutine summonQuestion;
 
     void Awake()
     {
         questions = new List<GameObject>();
         stayQuestions = new Queue<GameObject>();
-    }
 
-    private void Start()
-    {
         GameObject quest;
-        for(int i = 0; i < 20; i++) // 20개의 문제 오브젝트를 미리 생성하여 큐에 쌓아둔다
+        for (int i = 0; i < 20; i++) // 20개의 문제 오브젝트를 미리 생성하여 큐에 쌓아둔다
         {
             quest = Instantiate(questionPrefab, this.transform);
             quest.GetComponent<Question>().Summoner = this.gameObject;
@@ -28,7 +26,23 @@ public class QuestionSummoner : MonoBehaviour
             quest.GetComponent<Question>().DeadLine = deadLine;
             stayQuestions.Enqueue(quest);
         }
-        StartCoroutine("SummonQuestion"); // 문제들을 소환하는 코루틴
+    }
+
+    private void OnEnable()
+    {
+        summonQuestion = StartCoroutine("SummonQuestion"); // 문제들을 소환하는 코루틴
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine(summonQuestion);
+
+        foreach(GameObject quest in questions)
+        {
+            quest.SetActive(false);
+            stayQuestions.Enqueue(quest);
+        }
+        questions.Clear();
     }
 
     // 문제들을 소환하는 코루틴
