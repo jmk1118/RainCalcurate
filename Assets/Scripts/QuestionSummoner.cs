@@ -5,17 +5,19 @@ using UnityEngine;
 public class QuestionSummoner : MonoBehaviour
 {
     [SerializeField] GameObject GameManagerMain; // 메인 게임 매니저 오브젝트
-    [SerializeField] float summonTime; // 최대 소환시간. 최소 소환시간은 최대의 1/2
     [SerializeField] GameObject questionPrefab; // 문제 프리팹
     [SerializeField] GameObject deadLine; // 문제가 닿으면 사라지는 최종 라인 오브젝트
     List<GameObject> questions; // 문제 리스트
     Queue<GameObject> stayQuestions; // 대기 문제 큐
-    Coroutine summonQuestion;
+    Coroutine summonQuestion; // 문제 소환 코루틴
+    float summonTime; // 최대 소환시간. 최소 소환시간은 최대의 1/2
+    int summonCount; // 문제 소환 수
 
     void Awake()
     {
         questions = new List<GameObject>();
         stayQuestions = new Queue<GameObject>();
+        summonTime = 3.0f; // 문제 최대 소환 시간 초기화
 
         GameObject quest;
         for (int i = 0; i < 20; i++) // 20개의 문제 오브젝트를 미리 생성하여 큐에 쌓아둔다
@@ -31,6 +33,7 @@ public class QuestionSummoner : MonoBehaviour
     private void OnEnable()
     {
         summonQuestion = StartCoroutine("SummonQuestion"); // 문제들을 소환하는 코루틴
+        summonCount = 0; // 문제 소환 수 초기화
     }
 
     private void OnDisable()
@@ -55,6 +58,12 @@ public class QuestionSummoner : MonoBehaviour
         {
             quest = stayQuestions.Dequeue();
             quest.transform.position = this.transform.position;
+
+            // 문제 낙하 속도 조절
+            quest.GetComponent<Question>().Speed = 1.0f - (summonCount / 100.0f);
+            if (summonCount < 100)
+                summonCount++;
+
             quest.SetActive(true);
             questions.Add(quest);
             yield return new WaitForSeconds(Random.Range(summonTime / 2, summonTime));

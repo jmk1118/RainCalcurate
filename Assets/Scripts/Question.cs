@@ -17,6 +17,7 @@ public class Question : MonoBehaviour
     public GameObject Summoner { get; set; } // QuestionSummoner 오브젝트 저장용 변수
     public GameObject DeadLine { get; set; } // 문제 오브젝트가 사라지는 선을 나타내는 오브젝트
     public int QuestionIndex { get; set; } // QuestionSummoner 오브젝에서 소환한 Question 오브젝트의 index
+    public float Speed { get; set; } // 떨어지는 속도
 
     private void Awake()
     {
@@ -85,12 +86,12 @@ public class Question : MonoBehaviour
     // 아래로 떨어지다가 파괴되는 코루틴
     IEnumerator Move() 
     {
-        int speed = (int)(transform.position.y - DeadLine.transform.position.y) / 8; // 떨어지는 스피드
+        int dropLength = (int)(transform.position.y - DeadLine.transform.position.y) / 10; // 떨어지는 길이
 
         while (transform.position.y > DeadLine.transform.position.y + 30)
         {
-            yield return new WaitForSeconds(1.0f);
-            transform.position = transform.position + Vector3.down * speed;
+            yield return new WaitForSeconds(Speed);
+            transform.position = transform.position + Vector3.down * dropLength;
         }
 
         Summoner.GetComponent<QuestionSummoner>().PoolingQuestion(QuestionIndex);
