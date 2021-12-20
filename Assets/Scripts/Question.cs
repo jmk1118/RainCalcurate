@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,7 +30,8 @@ public class Question : MonoBehaviour
     {
         firstNumber = Random.Range(1, 10); // 첫번째 피연산자에 1~9 표시
         secondNumber = Random.Range(1, 10); // 두번째 피연산자에 1~9 표시
-        sign = Random.Range(1, 5); // 연산자 +,-,x,/ 중 하나 표시
+        // sign = Random.Range(1, 5); // 연산자 +,-,x,/ 중 하나 표시
+        sign = Summoner.GetComponent<QuestionSummoner>().DecisionSign();
         switch(sign)
         {
             // 덧셈
