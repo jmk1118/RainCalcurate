@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject startPanel; // 시작 화면
     [SerializeField] GameObject mainPanel; // 메인 화면
     [SerializeField] GameObject optionPanel; // 옵션 화면
+    [SerializeField] GameObject zeroOptionPanel; // 옵션을 전부 OFF로 했을때 나타나는 화면
     [SerializeField] GameObject pausePanel; // 일시정지 화면
     [SerializeField] GameObject gameOverPanel; // 게임오버 화면
     bool isPause; // 일시정지 상태
@@ -80,11 +81,16 @@ public class GameManager : MonoBehaviour
     {
         if (!Plus && !Minus && !Multipication && !Division) // 전부 false일 경우 작동하지 않는다
         {
-            // 옵션을 하나 이상 선택해주세요 창 만들기
+            zeroOptionPanel.SetActive(true);
             return;
         }
 
         optionPanel.SetActive(false);
+    }
+
+    public void ZeroOptionClose()
+    {
+        zeroOptionPanel.SetActive(false);
     }
 
     // 게임 종료 버튼 메소드
