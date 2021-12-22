@@ -67,7 +67,6 @@ public class QuestionSummoner : MonoBehaviour
     IEnumerator SummonQuestion()
     {
         GameObject quest;
-        questions.Add(stayQuestions.Dequeue());
         // summonTime과 그 반 사이의 시간대로 랜덤하게 문제를 소환
         while (true)
         {
