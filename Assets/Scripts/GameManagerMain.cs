@@ -49,7 +49,7 @@ public class GameManagerMain : MonoBehaviour
 
         if(HP <= 0)
         {
-            GameManager.GetComponent<GameManager>().GameOver();
+            GameManager.GetComponent<GameManager>().GameOver(nowpoint);
         }
     }
 }
