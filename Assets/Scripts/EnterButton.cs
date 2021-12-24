@@ -30,9 +30,11 @@ public class EnterButton : MonoBehaviour
     /// </summary>
     public void ButtonClick()
     {
+        if (numberScreen.text.Length <= 0)
+            return;
+
         userAnswer = int.Parse(numberScreen.text);
         questionSummoner.CheckAllQuestions(userAnswer);
-        //Debug.Log(userAnswer);
         numberScreen.text = "";
     }
 }

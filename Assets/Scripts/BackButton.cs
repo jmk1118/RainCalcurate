@@ -30,6 +30,9 @@ public class BackButton : MonoBehaviour
     /// </summary>
     public void ButtonClick()
     {
+        if (numberScreen.text.Length <= 0)
+            return;
+
         screenText.Clear();
         screenText.Append(numberScreen.text);
         screenText.Remove(screenText.Length - 1, 1);
