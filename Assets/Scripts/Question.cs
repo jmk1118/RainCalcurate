@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +13,7 @@ public class Question : MonoBehaviour
     StringBuilder screenText; // 문제가 표시되는 텍스트창
     Text text; // 텍스트 컴포넌트
     Coroutine move;
+    float startTime;
 
     public GameObject Summoner { get; set; } // QuestionSummoner 오브젝트 저장용 변수
     public GameObject DeadLine { get; set; } // 문제 오브젝트가 사라지는 선을 나타내는 오브젝트
@@ -30,6 +30,7 @@ public class Question : MonoBehaviour
     {
         firstNumber = Random.Range(1, 10); // 첫번째 피연산자에 1~9 표시
         secondNumber = Random.Range(1, 10); // 두번째 피연산자에 1~9 표시
+        startTime = Time.time;
         // sign = Random.Range(1, 5); // 연산자 +,-,x,/ 중 하나 표시
         sign = Summoner.GetComponent<QuestionSummoner>().DecisionSign();
         switch(sign)
@@ -102,11 +103,11 @@ public class Question : MonoBehaviour
     }
 
     // 인수로 받은 숫자가 정답인지 아닌지 체크하는 메소드
-    public bool Check(int UserAnswer)
+    public int Check(int UserAnswer)
     {
         if(UserAnswer == answer)
-            return true; // 정답
+            return (int)(10 * (10 - (Time.time - startTime))); // 정답
         else
-            return false; // 오답
+            return -1; // 오답
     }
 }

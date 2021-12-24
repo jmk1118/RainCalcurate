@@ -24,9 +24,10 @@ public class GameManagerMain : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(timePlay);
+        StopCoroutine(timePlay); // 시간을 재는 코루틴 종료
     }
 
+    // 시간을 재는 코루틴
     IEnumerator TimePlay()
     {
         while (true)
@@ -36,9 +37,9 @@ public class GameManagerMain : MonoBehaviour
         }
     }
 
-    public void GetPoint()
+    public void GetPoint(int point)
     {
-        nowpoint += 10;
+        nowpoint += point;
         pointText.text = "점수 : " + nowpoint.ToString() + "점";
     }
 

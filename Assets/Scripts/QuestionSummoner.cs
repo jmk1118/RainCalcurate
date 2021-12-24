@@ -11,7 +11,6 @@ public class QuestionSummoner : MonoBehaviour
     List<GameObject> questions; // 문제 리스트
     Queue<GameObject> stayQuestions; // 대기 문제 큐
     Coroutine summonQuestion; // 문제 소환 코루틴
-    float summonTime; // 최대 소환시간. 최소 소환시간은 최대의 1/2
     int summonCount; // 문제 소환 수
     List<int> signsOption;
 
@@ -19,7 +18,6 @@ public class QuestionSummoner : MonoBehaviour
     {
         questions = new List<GameObject>();
         stayQuestions = new Queue<GameObject>();
-        summonTime = 3.0f; // 문제 최대 소환 시간 초기화
         signsOption = new List<int>();
 
         GameObject quest;
@@ -53,14 +51,15 @@ public class QuestionSummoner : MonoBehaviour
 
     private void OnDisable()
     {
-        StopCoroutine(summonQuestion);
+        StopCoroutine(summonQuestion); // 문제 소환 코루틴 종료
 
+        // 문제들 비활성화
         foreach(GameObject quest in questions)
         {
             quest.SetActive(false);
             stayQuestions.Enqueue(quest);
         }
-        questions.Clear();
+        questions.Clear(); // 소환된 문제들을 모두 비움
     }
 
     // 문제들을 소환하는 코루틴
@@ -80,21 +79,23 @@ public class QuestionSummoner : MonoBehaviour
 
             quest.SetActive(true);
             questions.Add(quest);
-            yield return new WaitForSeconds(Random.Range(summonTime / 2, summonTime));
+            yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         }
     }
 
     // 유저에게 입력받은 수가 정답인지 확인하는 메소드
     public void CheckAllQuestions(int userAnswer)
     {
+        int nowpoint;
         for(int i = 0; i < questions.Count; i++)
         {
-            if(questions[i].GetComponent<Question>().Check(userAnswer))
+            nowpoint = questions[i].GetComponent<Question>().Check(userAnswer);
+            if (nowpoint != -1)
             {
                 questions[i].SetActive(false);
                 stayQuestions.Enqueue(questions[i]);
                 questions.RemoveAt(i);
-                GameManagerMain.GetComponent<GameManagerMain>().GetPoint();
+                GameManagerMain.GetComponent<GameManagerMain>().GetPoint(nowpoint);
                 break;
             }
         }

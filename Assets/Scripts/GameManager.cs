@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     int maxPointDiv; // 나눗셈 최고점수 
     int maxPointAll; // 전부 최고점수
 
-    int option;
+    int option; // 선택한 게임 설정
     public bool Plus { get; set; } // 덧셈 출현 불린값
     public bool Minus { get; set; } // 뺄셈 출현 불린값
     public bool Multipication { get; set; } // 곱셈 출현 불린값
@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         logPath = Application.persistentDataPath + "log.txt";
         fileStream = new FileStream(logPath, FileMode.OpenOrCreate);
 
+        // 각 설정별 최고 점수를 로그에서 받아와 최고 점수 창 텍스트를 갱신한다
         fileStream.Read(fileByte, 0, fileByte.Length);
         maxPointPlus = BitConverter.ToInt32(fileByte, 0);
         pointCheckPanel.transform.GetChild(1).GetComponent<Text>().text = maxPointPlus.ToString() + "점";
@@ -147,6 +148,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    // 전부 출현 옵션 메소드
     public void AllOption(bool check)
     {
         if(check)
@@ -165,11 +167,13 @@ public class GameManager : MonoBehaviour
         optionPanel.SetActive(false);
     }
 
+    // 점수 확인 창을 여는 메소드
     public void PointCheckOpen()
     {
         pointCheckPanel.SetActive(true);
     }
 
+    // 점수 확인 창을 닫는 메소드
     public void PointCheckClose()
     {
         pointCheckPanel.SetActive(false);
@@ -215,6 +219,7 @@ public class GameManager : MonoBehaviour
             fileStream.Seek(0, SeekOrigin.Begin);
             fileStream.Write(fileByte, 0, fileByte.Length);
             fileStream.Close();
+
             maxPointPlus = point;
             pointCheckPanel.transform.GetChild(1).GetComponent<Text>().text = maxPointPlus.ToString() + "점";
         }
@@ -225,6 +230,7 @@ public class GameManager : MonoBehaviour
             fileStream.Seek(4, SeekOrigin.Begin);
             fileStream.Write(fileByte, 0, fileByte.Length);
             fileStream.Close();
+
             maxPointMinus = point;
             pointCheckPanel.transform.GetChild(2).GetComponent<Text>().text = maxPointMinus.ToString() + "점";
         }
@@ -235,6 +241,7 @@ public class GameManager : MonoBehaviour
             fileStream.Seek(8, SeekOrigin.Begin);
             fileStream.Write(fileByte, 0, fileByte.Length);
             fileStream.Close();
+
             maxPointX = point;
             pointCheckPanel.transform.GetChild(3).GetComponent<Text>().text = maxPointX.ToString() + "점";
         }
@@ -245,6 +252,7 @@ public class GameManager : MonoBehaviour
             fileStream.Seek(12, SeekOrigin.Begin);
             fileStream.Write(fileByte, 0, fileByte.Length);
             fileStream.Close();
+
             maxPointDiv = point;
             pointCheckPanel.transform.GetChild(4).GetComponent<Text>().text = maxPointDiv.ToString() + "점";
         }
@@ -255,6 +263,7 @@ public class GameManager : MonoBehaviour
             fileStream.Seek(16, SeekOrigin.Begin);
             fileStream.Write(fileByte, 0, fileByte.Length);
             fileStream.Close();
+
             maxPointAll = point;
             pointCheckPanel.transform.GetChild(5).GetComponent<Text>().text = maxPointAll.ToString() + "점";
         }
