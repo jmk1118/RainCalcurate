@@ -5,20 +5,18 @@ using UnityEngine.UI;
 public class GameManagerMain : MonoBehaviour
 {
     [SerializeField] GameObject GameManager; // 게임 매니저 오브젝트
-    [SerializeField] Text hpText; // hp 줄어드는 시스템을 개발하자
+    [SerializeField] Text timeText; // 남은 시간을 표시하는 텍스트
     [SerializeField] Text pointText;
     int nowtime;
     int nowpoint;
-    int HP;
     Coroutine timePlay;
 
     private void OnEnable()
     {
-        nowtime = 0;
+        nowtime = 180;
         nowpoint = 0;
-        HP = 10;
         timePlay = StartCoroutine("TimePlay");
-        hpText.text = "남은 체력 : 10점";
+        timeText.text = "남은 시간 : 0분 0초";
         pointText.text = "점수 : 0점";
     }
 
@@ -30,11 +28,15 @@ public class GameManagerMain : MonoBehaviour
     // 시간을 재는 코루틴
     IEnumerator TimePlay()
     {
-        while (true)
+        while (nowtime > 0)
         {
-            nowtime++;
+            timeText.text = "남은 시간 : " + (nowtime / 60).ToString() + "분 " + (nowtime % 60).ToString() + "초";
+            nowtime--;
             yield return new WaitForSeconds(1.0f);
         }
+
+        GameManager.GetComponent<GameManager>().GameOver(nowpoint);
+        yield break;
     }
 
     public void GetPoint(int point)
@@ -45,12 +47,6 @@ public class GameManagerMain : MonoBehaviour
 
     public void LosePoint()
     {
-        HP--;
-        hpText.text = "남은 체력 : " + HP;
-
-        if(HP <= 0)
-        {
-            GameManager.GetComponent<GameManager>().GameOver(nowpoint);
-        }
+        GameManager.GetComponent<GameManager>().GameOver(nowpoint);
     }
 }

@@ -11,7 +11,7 @@ public class QuestionSummoner : MonoBehaviour
     List<GameObject> questions; // 문제 리스트
     Queue<GameObject> stayQuestions; // 대기 문제 큐
     Coroutine summonQuestion; // 문제 소환 코루틴
-    int summonCount; // 문제 소환 수
+    int summonSpeed; // 문제가 떨어지는 속도
     List<int> signsOption;
 
     void Awake()
@@ -33,7 +33,7 @@ public class QuestionSummoner : MonoBehaviour
 
     private void OnEnable()
     {
-        summonCount = 0; // 문제 소환 수 초기화
+        summonSpeed = 0; // 문제가 떨어지는 속도 초기화
 
         // 사칙연산 옵션 획득
         signsOption.Clear();
@@ -73,9 +73,11 @@ public class QuestionSummoner : MonoBehaviour
             quest.transform.position = this.transform.position;
 
             // 문제 낙하 속도 조절
-            quest.GetComponent<Question>().Speed = 1.0f - (summonCount / 100.0f);
-            if (summonCount < 100)
-                summonCount++;
+            quest.GetComponent<Question>().Speed = 1.0f - (summonSpeed / 100.0f);
+            if (summonSpeed < 70)
+            {
+                summonSpeed++;
+            }
 
             quest.SetActive(true);
             questions.Add(quest);
