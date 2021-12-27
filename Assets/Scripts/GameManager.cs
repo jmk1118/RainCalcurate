@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     {
         isPause = false; // 일시정지하지 않은 상태로 초기화
 
+        SetResolution(); // 해상도 재설정
+
         // 모든 사칙연산이 출현하는 상태로 초기화
         Plus = true;
         Minus = true;
@@ -81,6 +83,29 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // 해상도를 재설정하는 메소드
+    public void SetResolution()
+    {
+        Camera camera = Camera.main;
+        Rect rect = camera.rect;
+
+        float scaleheight = ((float)Screen.width / Screen.height) / ((float)9 / 16); // 9:16비에 비하여 높이가 더 높으면 1보다 크다
+        float scalewidth = 1f / scaleheight; // 9:16비에 비하여 높이가 더 낮으면 1보다 크다
+
+        if(scaleheight < 1) // 높이가 9:16비에 비해 낮을 경우
+        {
+            rect.height = scaleheight; // 높이는 유지
+            rect.y = (1f - scaleheight) / 2f; // 좌우로 늘어난 비율만큼 자름
+        }
+        else // 높이가 9:16비에 비해 높을 경우
+        {
+            rect.width = scalewidth; // 너비는 유지
+            rect.x = (1f - scalewidth) / 2f; // 위아래로 늘어난 비율만큼 자름
+        }
+
+        camera.rect = rect;
     }
 
     // 게임 시작 버튼 메소드
