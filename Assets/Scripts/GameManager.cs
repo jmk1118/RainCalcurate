@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject startPanel; // 시작 화면
     [SerializeField] GameObject mainPanel; // 메인 화면
     [SerializeField] GameObject optionPanel; // 옵션 화면
+    [SerializeField] GameObject snowParticle; // 눈 파티클 오브젝트
     [SerializeField] GameObject pointCheckPanel; // 점수 확인 화면
     [SerializeField] GameObject pausePanel; // 일시정지 화면
     [SerializeField] GameObject gameOverPanel; // 게임오버 화면
@@ -122,68 +123,58 @@ public class GameManager : MonoBehaviour
     }
 
     // 덧셈 출현 옵션 메소드
-    public void PlusOption(bool check)
+    public void OptionPlus()
     {
-        if(check)
-        {
-            Plus = true;
-            Minus = false;
-            Multipication = false;
-            Division = false;
-            option = 1;
-        }
+        Plus = true;
+        Minus = false;
+        Multipication = false;
+        Division = false;
+        option = 1;
     }
 
     // 뺄셈 출현 옵션 메소드
-    public void MinusOption(bool check)
+    public void OptionMinus()
     {
-        if (check)
-        {
-            Plus = false;
-            Minus = true;
-            Multipication = false;
-            Division = false;
-            option = 2;
-        }
+        Plus = false;
+        Minus = true;
+        Multipication = false;
+        Division = false;
+        option = 2;
     }
 
     // 곱셈 출현 옵션 메소드
-    public void MultiOption(bool check)
+    public void OptionX()
     {
-        if (check)
-        {
-            Plus = false;
-            Minus = false;
-            Multipication = true;
-            Division = false;
-            option = 3;
-        }
+        Plus = false;
+        Minus = false;
+        Multipication = true;
+        Division = false;
+        option = 3;
     }
 
     // 나눗셈 출현 옵션 메소드
-    public void DivisionOption(bool check)
+    public void OptionDivision()
     {
-        if (check)
-        {
-            Plus = false;
-            Minus = false;
-            Multipication = false;
-            Division = true;
-            option = 4;
-        }
+        Plus = false;
+        Minus = false;
+        Multipication = false;
+        Division = true;
+        option = 4;
     }
 
     // 전부 출현 옵션 메소드
-    public void AllOption(bool check)
+    public void OptionAll()
     {
-        if(check)
-        {
-            Plus = true;
-            Minus = true;
-            Multipication = true;
-            Division = true;
-            option = 5;
-        }
+        Plus = true;
+        Minus = true;
+        Multipication = true;
+        Division = true;
+        option = 5;
+    }
+
+    public void OptionSnow(bool check)
+    {
+        snowParticle.SetActive(check);
     }
 
     // 옵션 창을 닫는 메소드
