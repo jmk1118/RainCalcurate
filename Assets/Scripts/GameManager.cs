@@ -10,7 +10,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject optionPanel; // 옵션 화면
     [SerializeField] GameObject snowParticle; // 눈 파티클 오브젝트
     [SerializeField] GameObject pointCheckPanel; // 점수 확인 화면
+    [SerializeField] GameObject helpPanel; // 도움말 화면
+    [SerializeField] GameObject developerPanel; // 개발자 화면
     [SerializeField] GameObject pausePanel; // 일시정지 화면
+    [SerializeField] GameObject gameWinPanel; // 게임 승리 화면
     [SerializeField] GameObject gameOverPanel; // 게임오버 화면
     bool isPause; // 일시정지 상태
     string logPath; // 최고 점수가 저장되는 로트 파일 위치
@@ -195,6 +198,30 @@ public class GameManager : MonoBehaviour
         pointCheckPanel.SetActive(false);
     }
 
+    // 도움말 창을 여는 메소드
+    public void HelpOpen()
+    {
+        helpPanel.SetActive(true);
+    }
+
+    // 도움말 창을 닫는 메소드
+    public void HelpClose()
+    {
+        helpPanel.SetActive(false);
+    }
+
+    // 개발자 창을 여는 메소드
+    public void DeveloperOpen()
+    {
+        developerPanel.SetActive(true);
+    }
+
+    // 개발자 창을 닫는 메소드
+    public void DeveloperClose()
+    {
+        developerPanel.SetActive(false);
+    }
+
     // 게임 종료 버튼 메소드
     public void EndGame()
     {
@@ -221,9 +248,18 @@ public class GameManager : MonoBehaviour
 
     // 체력이 0이 되면 호출되는 메소드
     // 게임 오버 패널을 활성화하고 게임을 정지시킨다
-    public void GameOver(int point)
+    public void GameOver(int point, bool win)
     {
-        gameOverPanel.SetActive(true);
+        if (win)
+        {
+            gameWinPanel.SetActive(true);
+            gameWinPanel.transform.GetChild(1).GetComponent<Text>().text = "점수 : " + point.ToString();
+        }
+        else
+        {
+            gameOverPanel.SetActive(true);
+            gameOverPanel.transform.GetChild(1).GetComponent<Text>().text = "점수 : " + point.ToString();
+        }
         Time.timeScale = 0;
         isPause = true;
 
@@ -292,6 +328,7 @@ public class GameManager : MonoBehaviour
         mainPanel.SetActive(true);
 
         // 게임 오버 화면을 위한 설정들을 되돌린다
+        gameWinPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 1;
         isPause = false;
@@ -304,6 +341,7 @@ public class GameManager : MonoBehaviour
         mainPanel.SetActive(false);
 
         // 게임 오버 화면을 위한 설정들을 되돌린다
+        gameWinPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         Time.timeScale = 1;
         isPause = false;

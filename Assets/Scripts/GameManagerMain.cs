@@ -35,7 +35,7 @@ public class GameManagerMain : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
         }
 
-        GameManager.GetComponent<GameManager>().GameOver(nowpoint);
+        GameManager.GetComponent<GameManager>().GameOver(nowpoint, true);
         yield break;
     }
 
@@ -47,6 +47,6 @@ public class GameManagerMain : MonoBehaviour
 
     public void LosePoint()
     {
-        GameManager.GetComponent<GameManager>().GameOver(nowpoint);
+        GameManager.GetComponent<GameManager>().GameOver(nowpoint, false);
     }
 }
