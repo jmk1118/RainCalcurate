@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject pausePanel; // 일시정지 화면
     [SerializeField] GameObject gameWinPanel; // 게임 승리 화면
     [SerializeField] GameObject gameOverPanel; // 게임오버 화면
+    [SerializeField] GoogleAds googleAds; // 광고 스크립트
     bool isPause; // 일시정지 상태
     string logPath; // 최고 점수가 저장되는 로트 파일 위치
     Stream fileStream; // 파일스트림
@@ -117,6 +118,7 @@ public class GameManager : MonoBehaviour
     {
         mainPanel.SetActive(true);
         startPanel.SetActive(false);
+        googleAds.OffBanner();
     }
 
     // 게임 설정 버튼 메소드
@@ -236,6 +238,7 @@ public class GameManager : MonoBehaviour
         pausePanel.SetActive(false);
         Time.timeScale = 1;
         isPause = false;
+        googleAds.OnBanner();
     }
 
     // 일시정지 UI에서 NO를 선택하면 게임을 다시 진행하는 메소드
@@ -339,6 +342,7 @@ public class GameManager : MonoBehaviour
     {
         startPanel.SetActive(true);
         mainPanel.SetActive(false);
+        googleAds.OnBanner();
 
         // 게임 오버 화면을 위한 설정들을 되돌린다
         gameWinPanel.SetActive(false);

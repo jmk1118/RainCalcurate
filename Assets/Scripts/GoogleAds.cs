@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using GoogleMobileAds.Api;
 
@@ -16,25 +17,39 @@ public class GoogleAds : MonoBehaviour
     void Start()
     {
         // 구글 모바일 ads 초기화
-        MobileAds.Initialize(initState => { RequestBanner(); });
+        MobileAds.Initialize(initState => { });
+
+        this.RequestBanner();
     }
 
     private void RequestBanner()
     {
         // 광고 ID 초기화, 디버깅 빌드면 테스트용 광고 ID를 사용한다
-        string id = testID;
-        /*
-        if(Debug.isDebugBuild)
+        string id;
+        if (Debug.isDebugBuild) 
             id = testID;
         else
             id = unitID;
-        */
+
+        AdSize adaptiveSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
 
         // 스마트배너를 화면 위에 설치
-        bannerView = new BannerView(id, AdSize.SmartBanner, AdPosition.Bottom);
+        this.bannerView = new BannerView(id, adaptiveSize, AdPosition.Bottom);
 
+        // 비어있는 광고 생성 리퀘스트
         AdRequest request = new AdRequest.Builder().Build();
 
-        bannerView.LoadAd(request);
+        // 리퀘스트와 함께 배너를 로드
+        this.bannerView.LoadAd(request);
+    }
+
+    public void OnBanner()
+    {
+        bannerView.Show();
+    }
+
+    public void OffBanner()
+    {
+        bannerView.Hide();
     }
 }
