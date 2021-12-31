@@ -6527,7 +6527,7 @@ GameObject:
   - component: {fileID: 621865227}
   - component: {fileID: 621865226}
   m_Layer: 5
-  m_Name: Text
+  m_Name: InputText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23130,6 +23130,7 @@ MonoBehaviour:
   GameManager: {fileID: 1520577568}
   timeText: {fileID: 1178270696}
   pointText: {fileID: 410126520}
+  InputText: {fileID: 621865226}
 --- !u!1 &1991079246
 GameObject:
   m_ObjectHideFlags: 0

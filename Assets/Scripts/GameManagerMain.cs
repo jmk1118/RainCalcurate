@@ -6,7 +6,8 @@ public class GameManagerMain : MonoBehaviour
 {
     [SerializeField] GameObject GameManager; // 게임 매니저 오브젝트
     [SerializeField] Text timeText; // 남은 시간을 표시하는 텍스트
-    [SerializeField] Text pointText;
+    [SerializeField] Text pointText; // 점수창
+    [SerializeField] Text InputText; // 입력창
     int nowtime;
     int nowpoint;
     Coroutine timePlay;
@@ -18,6 +19,7 @@ public class GameManagerMain : MonoBehaviour
         timePlay = StartCoroutine("TimePlay");
         timeText.text = "남은 시간 : 0분 0초";
         pointText.text = "점수 : 0점";
+        InputText.text = "";
     }
 
     private void OnDisable()

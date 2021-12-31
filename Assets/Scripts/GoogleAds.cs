@@ -19,6 +19,12 @@ public class GoogleAds : MonoBehaviour
         // 구글 모바일 ads 초기화
         MobileAds.Initialize(initState => { });
 
+        // 어린이용 광고가 나오도록 수정
+        RequestConfiguration requestConfiguration = new RequestConfiguration.Builder()
+            .SetTagForChildDirectedTreatment(TagForChildDirectedTreatment.True)
+            .build();
+        MobileAds.SetRequestConfiguration(requestConfiguration);
+
         this.RequestBanner();
     }
 
