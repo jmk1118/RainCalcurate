@@ -1003,7 +1003,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - itemTitle: "\uBEBC\uC148"
+  - itemTitle: "\uBE84\uC148"
     onValueChanged:
       m_PersistentCalls:
         m_Calls:
