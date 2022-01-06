@@ -6,9 +6,10 @@
  * 덧셈/뺄셈/곱셈/나눗셈/전부 중 하나를 정해 플레이 할 수 있음
  * 최고 점수를 저장하여 실력이 늘어나고 있는지 확인할 수 있음
  
- ## Image
- <img src = "https://user-images.githubusercontent.com/9003807/148346671-e4d24c4a-e250-4cba-b08f-fdfd3c0bb786.jpg" width="400" height="600"> 
- <img src = "https://user-images.githubusercontent.com/9003807/148346932-00fe1a4c-a2a8-4198-a68c-cdb2a8451de4.jpg" width="400" height"600">
+ ## 이미지
+|                 Title                 |                 Play                  |
+| :-----------------------------------: | :-----------------------------------: |
+| ![title](./ReadMe/title.jpg?raw=true) | ![start](./ReadMe/main.jpg?raw=true)  |
  
  ## YouTube
  https://youtu.be/QuBTrk6Cwx0
